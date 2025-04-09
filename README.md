@@ -1,2 +1,2 @@
 # PRODIGY_WD_02
-This repository contain the 2nd  task of project at internship in Prodgiy infotech
+This repository contain the 2nd  task of my project during internship @Prodgiy infotech
