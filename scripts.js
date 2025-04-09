@@ -1,23 +1,48 @@
-const menuToggle = document.getElementById('menu-toggle');
-    const menu = document.getElementById('menu');
-    const menuIcon = document.getElementById('menu-icon');
-    const closeBtn = document.getElementById('close-btn');
-    const navbar = document.getElementById('navbar');
+let [hours, minutes, seconds] = [0, 0, 0];
+let timer = null;
+let lapCount = 1;
 
-    menuIcon.addEventListener('click', () => {
-        menu.classList.add('active');
-    });
+const display = document.getElementById("display");
+const laps = document.getElementById("laps");
 
-    closeBtn.addEventListener('click', () => {
-        menu.classList.remove('active');
-    });
+document.getElementById("start").addEventListener("click", () => {
+  if (timer !== null) return;
+  timer = setInterval(runStopwatch, 1000);
+});
 
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-    });
+document.getElementById("pause").addEventListener("click", () => {
+  clearInterval(timer);
+  timer = null;
+});
 
+document.getElementById("reset").addEventListener("click", () => {
+  clearInterval(timer);
+  [hours, minutes, seconds] = [0, 0, 0];
+  timer = null;
+  display.innerText = "00:00:00";
+  laps.innerHTML = '';
+  lapCount = 1;
+});
 
+document.getElementById("lap").addEventListener("click", () => {
+  const li = document.createElement("li");
+  li.innerText = `Lap ${lapCount++}: ${formatTime(hours)}:${formatTime(minutes)}:${formatTime(seconds)}`;
+  laps.appendChild(li);
+});
+
+function runStopwatch() {
+  seconds++;
+  if (seconds === 60) {
+    seconds = 0;
+    minutes++;
+  }
+  if (minutes === 60) {
+    minutes = 0;
+    hours++;
+  }
+  display.innerText = `${formatTime(hours)}:${formatTime(minutes)}:${formatTime(seconds)}`;
+}
+
+function formatTime(unit) {
+  return unit < 10 ? '0' + unit : unit;
+}
