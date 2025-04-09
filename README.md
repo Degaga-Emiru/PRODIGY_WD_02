@@ -1,2 +1,2 @@
 # PRODIGY_WD_02
-This repository contain the 1st task of project at internship 
+This repository contain the 2nd  task of project at internship in Prodgiy infotech
